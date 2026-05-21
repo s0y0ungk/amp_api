@@ -26,17 +26,10 @@
       .then(res => res.json())
       .then(result => {
         console.log(result);
-
-        console.log(result.main.temp);
-        console.log(result.weather[0].icon);
-
-        let imgURL = `https://openweathermap.org/payload/api/media/file/${result.weather[0].icon}.png`;
-
-        ctemp.innerText = result.main.temp;
+        cdesc.innerText = result.weather[0].description;
         chum.innerText = result.main.humidity;
-        icon.setAttribute("src", imgURL);
+        cwind.innerText = result.wind.speed;
       });
   </script>
 </body>
-
 </html>
