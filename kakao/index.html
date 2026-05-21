@@ -40,14 +40,14 @@
 
   </script>
   <script>
-    const locations = document.querySelectorAll('.location li');
+    const locations = document.querySelectorAll('ul li');
 
     /*
       메뉴를 클릭하면 할일
       변수명 lat, lng, title에 클릭한 그 요소의 값을 할당
       함수 myMap 실행
     */
-    locations.forEach(location => {
+    locations.forEach((location) => {
       location.addEventListener('click', () => {
         // let lat = location.getAttribute('data-lat');
         let lat = location.dataset.lat;
@@ -84,7 +84,7 @@
       });
     }
 
-    myMap(37, 5175066, 127.0473753, "강남구청");
+    myMap(37.5175066, 127.0473753, "강남구청");
   </script>
 </body>
 
