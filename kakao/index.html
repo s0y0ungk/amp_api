@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
   <title>지도 생성하기</title>
   <style>
     .map {
@@ -26,29 +25,24 @@
 
 <body>
   <div class="wrapper">
-    <ul>
+    <ul class="location">
       <li data-lat="37.5175066" data-lng="127.0473753">강남구청</li>
-      <li data-lat="37.5175066" data-lng="127.0473753">용산구청</li>
-      <li data-lat="37.5175066" data-lng="127.0473753">노원구청</li>
+      <li data-lat="37.5323264" data-lng="126.9907031">용산구청</li>
+      <li data-lat="37.6540782" data-lng="127.0566045">노원구청</li>
     </ul>
     <div id="map" class="map"></div>
   </div>
 
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f9044ecdcccab8ca097c87e852c514d3"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b0b6152446dfe69fd7e7d0c718037ef8"></script>
   <script>
-
-
-  </script>
-  <script>
-    const locations = document.querySelectorAll('ul li');
-
+    const locations = document.querySelectorAll(".location li");
     /*
       메뉴를 클릭하면 할일
-      변수명 lat, lng, title에 클릭한 그 요소의 값을 할당
-      함수 myMap 실행
+        변수명 lat, lng, title에 클릭한 그 요소의 값을 할당
+        함수 myMap 실행
     */
-    locations.forEach((location) => {
-      location.addEventListener('click', () => {
+    locations.forEach(location => {
+      location.addEventListener("click", () => {
         // let lat = location.getAttribute('data-lat');
         let lat = location.dataset.lat;
         let lng = location.dataset.lng;
