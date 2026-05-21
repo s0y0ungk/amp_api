@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Da Nang Weather</title>
+</head>
+
+<body>
+  <h1>다낭시</h1>
+  <h2>현재 날씨</h2>
+
+  <h3>날씨 설명: <span id="desc"></span></h3>
+  <h3>습도: <span id="humidity"></span>%</h3>
+  <h3>풍속: <span id="wind"></span> m/s</h3>
+
+  <script>
+    const desc = document.querySelector("#desc");
+    const humidity = document.querySelector("#humidity");
+    const wind = document.querySelector("#wind");
+
+    fetch(
+      "https://api.openweathermap.org/data/2.5/weather?id=1583992&appid=d5948ec3ace590812f0049bbdb822c43&units=metric"
+    )
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+
+        // 날씨 설명
+        desc.innerText = result.weather[0].description;
+
+        // 습도
+        humidity.innerText = result.main.humidity;
+
+        // 풍속
+        wind.innerText = result.wind.speed;
+      });
+  </script>
+</body>
+</html>
