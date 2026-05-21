@@ -1,40 +1,42 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Da Nang Weather</title>
+  <title>다낭시 날씨</title>
 </head>
 
 <body>
   <h1>다낭시</h1>
   <h2>현재 날씨</h2>
 
-  <h3>날씨 설명: <span id="desc"></span></h3>
-  <h3>습도: <span id="humidity"></span>%</h3>
-  <h3>풍속: <span id="wind"></span> m/s</h3>
+  <h3>날씨 설명 : <span id="cdesc"></span></h3>
+  <h3>습도 : <span id="chum"></span></h3>
+  <h3>풍속 : <span id="cwind"></span></h3>
 
   <script>
-    const desc = document.querySelector("#desc");
-    const humidity = document.querySelector("#humidity");
-    const wind = document.querySelector("#wind");
+    const cdesc = document.querySelector("#cdesc");
+    const chum = document.querySelector("#chum");
+    const cwind = document.querySelector("#cwind");
 
     fetch(
-      "https://api.openweathermap.org/data/2.5/weather?id=1583992&appid=d5948ec3ace590812f0049bbdb822c43&units=metric"
+      "https://api.openweathermap.org/data/2.5/weather?id=1835848&appid=d5948ec3ace590812f0049bbdb822c43&units=metric",
     )
       .then(res => res.json())
       .then(result => {
         console.log(result);
 
-        // 날씨 설명
-        desc.innerText = result.weather[0].description;
+        console.log(result.main.temp);
+        console.log(result.weather[0].icon);
 
-        // 습도
-        humidity.innerText = result.main.humidity;
+        let imgURL = `https://openweathermap.org/payload/api/media/file/${result.weather[0].icon}.png`;
 
-        // 풍속
-        wind.innerText = result.wind.speed;
+        ctemp.innerText = result.main.temp;
+        chum.innerText = result.main.humidity;
+        icon.setAttribute("src", imgURL);
       });
   </script>
 </body>
+
 </html>
