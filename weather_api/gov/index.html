@@ -12,6 +12,14 @@
     />
     <link rel="stylesheet" href="css/datepicker.material.css" />
     <script src="datepicker.js"></script>
+    <style>
+      .alert {
+        display: none;
+      }
+      .alert.active {
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -31,13 +39,11 @@
         </thead>
         <tbody id="target">
           <!-- <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <td colspan="4">조회중입니다.</td>
           </tr> -->
         </tbody>
       </table>
+      <div class="alert alert-primary" role="alert">A simple primary alert—check it out!</div>
     </div>
     <script>
       const dateForm = document.querySelector("#dateForm");
@@ -69,6 +75,10 @@
           .map((v, i) => (i === 0 ? v : String(v).padStart(2, "0"))) //[2026,05,22]
           .join(""); // 20260522
 
+        target.innerHTML = `<tr>
+            <td colspan="4">조회중입니다.</td>
+          </tr>`;
+
         console.log(formatDate); // 20260522
         inqueryShortTermWeather(formatDate);
       });
@@ -79,12 +89,19 @@
         )
           .then(res => {
             console.log(res);
+            if (!res.ok) {
+              throw new Error("서버에 문제가 있습니다. 잠시후 다시 시도해주세요");
+            }
             return res.json(); //json -> js object 변환, 다음 then으로 전달
           })
           .then(result => {
             console.log(result);
-            let data = result.response.body.items.item;
+            let data = result.response?.body?.items?.item;
             console.log(data);
+            if (!data || data.length === 0) {
+              throw new Error("조회 결과가 없습니다.");
+            }
+
             let t1hArr = data.filter(d => d.category === "TMP"); //온도
             let rehArr = data.filter(d => d.category === "REH"); //습도
 
@@ -102,7 +119,19 @@
              </tr>`;
             });
             target.innerHTML = tableData;
+          })
+          .catch(error => {
+            console.log(error);
+            showMessage(error);
           });
+      }
+
+      //인포창 띄우기 함수
+      const alertBox = document.querySelector(".alert");
+
+      function showMessage(msg) {
+        alertBox.textContent = msg;
+        alertBox.classList.add("active");
       }
     </script>
   </body>
